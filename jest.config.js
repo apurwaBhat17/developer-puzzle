@@ -16,5 +16,8 @@ module.exports = {
      * because we don't need to use any kind of tree shaking.
      */
     '^lodash-es$': path.resolve('./node_modules/lodash/index.js')
-  }
+  },
+  testPathIgnorePatterns: [
+    "../libs/shared/ui/chart/src/lib/chart/mocks",
+  ]
 };
