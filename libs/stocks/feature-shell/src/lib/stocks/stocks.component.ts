@@ -23,7 +23,7 @@ export class StocksComponent implements OnInit {
       symbol: [null, Validators.required],
       startDate: [null, Validators.required],
       endDate: [null, Validators.required]
-    }, {validator: this.dateValidation});
+    });
   }
 
   public ngOnInit() {}
