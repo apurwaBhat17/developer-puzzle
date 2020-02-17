@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PriceQueryFacade } from '@coding-challenge/stocks/data-access-price-query';
+import { EStocksPlaceholders } from './enums/stocks-placeholders.enum';
+import { EStocksLabels } from './enums/stocks-labels.enum';
+import { EStocksErrors } from './enums/stocks-errors.enum';
+import { EStocksPeriod } from './enums/stocks-period.enum';
 
 @Component({
   selector: 'coding-challenge-stocks',
@@ -8,36 +12,48 @@ import { PriceQueryFacade } from '@coding-challenge/stocks/data-access-price-que
   styleUrls: ['./stocks.component.css']
 })
 export class StocksComponent implements OnInit {
-  stockPickerForm: FormGroup;
-  symbol: string;
-  period: string;
-
-  quotes$ = this.priceQuery.priceQueries$;
-
-  timePeriods = [
-    { viewValue: 'All available data', value: 'max' },
-    { viewValue: 'Five years', value: '5y' },
-    { viewValue: 'Two years', value: '2y' },
-    { viewValue: 'One year', value: '1y' },
-    { viewValue: 'Year-to-date', value: 'ytd' },
-    { viewValue: 'Six months', value: '6m' },
-    { viewValue: 'Three months', value: '3m' },
-    { viewValue: 'One month', value: '1m' }
-  ];
-
+  public stockPickerForm: FormGroup;
+  public today = new Date();
+  public quotes$ = this.priceQuery.priceQueries$;
+  public stocksPlaceholders = EStocksPlaceholders;
+  public stocksLabels = EStocksLabels;
+  public stocksErrors = EStocksErrors;
   constructor(private fb: FormBuilder, private priceQuery: PriceQueryFacade) {
-    this.stockPickerForm = fb.group({
+    this.stockPickerForm = this.fb.group({
       symbol: [null, Validators.required],
-      period: [null, Validators.required]
-    });
+      startDate: [null, Validators.required],
+      endDate: [null, Validators.required]
+    }, {validator: this.dateValidation});
   }
 
-  ngOnInit() {}
+  public ngOnInit() {}
 
-  fetchQuote() {
+  public fetchQuote() {
+    const startDate = this.stockPickerForm.value.startDate;
+    const endDate = this.stockPickerForm.value.endDate;
+    const period = EStocksPeriod.MAX;
     if (this.stockPickerForm.valid) {
-      const { symbol, period } = this.stockPickerForm.value;
+      this.updateDateOnError(this.stockPickerForm)
+      const { symbol } = this.stockPickerForm.value;
       this.priceQuery.fetchQuote(symbol, period);
+      this.priceQuery.fetchFilterQuote(startDate, endDate);
+    }
+  }
+
+  public dateValidation(stockPickerForm: FormGroup): boolean {
+    if(stockPickerForm.value.startDate && stockPickerForm.value.endDate) {
+      const fromDate = Date.parse(stockPickerForm.value.startDate);
+      const toDate = Date.parse(stockPickerForm.value.endDate);
+      if (fromDate > toDate) {
+      return true
+      }
+    }
+  }
+
+  public updateDateOnError(stockPickerForm: FormGroup): void {
+    if (this.dateValidation(stockPickerForm)) {
+      this.stockPickerForm.value.startDate = stockPickerForm.value.endDate;
+      this.stockPickerForm.controls['startDate'].setValue(stockPickerForm.value.endDate);
     }
   }
 }

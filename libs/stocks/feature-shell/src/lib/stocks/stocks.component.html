@@ -2,7 +2,7 @@
   <mat-form-field>
     <input
       matInput
-      placeholder="Symbol e.g AAPL"
+      placeholder="{{stocksPlaceholders.SYMBOL}}"
       formControlName="symbol"
       value=""
     />
@@ -12,24 +12,44 @@
           !stockPickerForm.get('symbol').valid &&
           stockPickerForm.get('symbol').touched
         "
-        >Please enter a symbol</span
+        >{{stocksErrors.ENTER_SYMBOL}}</span
       >
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Favorite time period</mat-label>
-    <mat-select formControlName="period">
-      <mat-option
-        *ngFor="let timePeriod of timePeriods"
-        [value]="timePeriod.value"
+    <input matInput [matDatepicker]="picker1" [max]="today" name="startDate" id="startDate"
+    placeholder="{{stocksPlaceholders.START_DATE}}" formControlName="startDate">
+    <mat-datepicker-toggle  matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+    <mat-error
+      ><span
+        *ngIf="
+          !stockPickerForm.get('startDate').valid &&
+          stockPickerForm.get('startDate').touched
+        "
+        >{{stocksErrors.VALID_START_DATE}}</span
       >
-        {{ timePeriod.viewValue }}
-      </mat-option>
-    </mat-select>
+    </mat-error>
   </mat-form-field>
 
-  <button (click)="fetchQuote()" mat-raised-button>Go</button>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" [max]= "today" name="endDate" id="endDate"
+    placeholder="{{stocksPlaceholders.END_DATE}}" formControlName="endDate">
+    <mat-datepicker-toggle  matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+    <mat-error
+      ><span
+        *ngIf="
+          !stockPickerForm.get('endDate').valid &&
+          stockPickerForm.get('endDate').touched
+        "
+        >{{stocksErrors.VALID_END_DATE}}</span
+      >
+    </mat-error>
+  </mat-form-field>
+
+  <button (click)="fetchQuote()" mat-raised-button>{{stocksLabels.GO}}</button>
 </form>
 
 <coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>

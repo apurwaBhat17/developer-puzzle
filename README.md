@@ -38,36 +38,6 @@ A proxy has been set up in `stocks` to proxy calls to `locahost:3333` which is t
 
 [Original problem statement](https://github.com/tmobile/developer-kata/blob/master/puzzles/web-api/stock-broker.md)
 
-### Task 1
-
-Please provide a short code review of the base `master` branch:
-
-#### Task 1-A
-1. What is done well?
-2. What would you change?
-3. Are there any code smells or problematic implementations?
-
-> Make a PR to fix at least one of the issues that you identify
-
-#### Task 1-B
-
-[Accessability](https://www.w3.org/WAI/GL/WCAG20/) is an important feature of all public facing websites.  
-
-> Make a PR to add accessability features to the web application
-
-
-### Task 2
-
-```
-Business requirement: As a user I should be able to type into
-the symbol field and make a valid time-frame selection so that
-the graph is refreshed automatically without needing to click a button.
-```
-
-_**Make a PR from the branch `feat_stock_typeahead` to `master` and provide a code review on this PR**_
-
-> Add comments to the PR. Focus on all items that you can see - this is a hypothetical example but let's treat it as a critical application. Then present these changes as another commit on the PR.
-
 ### Task 3
 
 ```
@@ -81,14 +51,6 @@ _**Implement this feature and make a PR from the branch `feat_custom_dates` to `
 
 > We need two date-pickers: "from" and "to". The date-pickers should not allow selection of dates after the current day. "to" cannot be before "from" (selecting an invalid range should make both dates the same value)
 
-### Task 4
-
-```
-Technical requirement: the server `stocks-api` should be used as a proxy
-to make calls. Calls should be cached in memory to avoid querying for the
-same data. If a query is not in cache we should call-through to the API.
-```
-
-_**Implement the solution and make a PR from the branch `feat_proxy_server` to `master`**_
-
-> It is important to get the implementation working before trying to organize and clean it up.
+> Added from and to date pickers to fetch particular stocks data.
+> Removed hardcoding values from html.
+> Updated testcases.

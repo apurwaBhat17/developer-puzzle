@@ -14,6 +14,16 @@ export const getSelectedSymbol = createSelector(
   (state: PriceQueryState) => state.selectedSymbol
 );
 
+export const getSelectedStartDate = createSelector(
+  getPriceQueryState,
+  (state: PriceQueryState) => state.selectedStartDate
+);
+
+export const getSelectedEndDate = createSelector(
+  getPriceQueryState,
+  (state: PriceQueryState) => state.selectedEndDate
+);
+
 const { selectAll } = priceQueryAdapter.getSelectors();
 
 export const getAllPriceQueries = createSelector(
