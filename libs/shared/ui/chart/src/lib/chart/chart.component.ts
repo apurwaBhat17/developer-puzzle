@@ -21,12 +21,12 @@ export class ChartComponent implements OnInit, OnDestroy {
   private chartDataSubscription: Subscription;
   constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.chartData = CHART_MOCK_DATA;
     this.chartDataSubscription = this.data$.subscribe(newData => (this.chartData.data = newData));
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     if (this.chartDataSubscription) {
       this.chartDataSubscription.unsubscribe();
     }
