@@ -17,16 +17,6 @@ A proxy has been set up in `stocks` to proxy calls to `locahost:3333` which is t
 
 [Original problem statement](https://bitbucket.org/kburson3/developer-puzzles/src/3fb1841175cd567a63abfbe18c08e4d2a734c2e9/puzzles/web-api/stock-broker.md)
 
-### Task 1
-
-Please provide a short code review of the base `master` branch:
-
-1. What is done well?
-2. What would you change?
-3. Are there any code smells or problematic implementations?
-
-> Make a PR to fix at least one of the issues that you identify
-
 ### Task 2
 
 ```
@@ -39,27 +29,7 @@ _**Make a PR from the branch `feat_stock_typeahead` to `master` and provide a co
 
 > Add comments to the PR. Focus on all items that you can see - this is a hypothetical example but let's treat it as a critical application. Then present these changes as another commit on the PR.
 
-### Task 3
-
-```
-Business requirement: As a user I want to choose custom dates
-so that I can view the trends within a specific period of time.
-```
-
-_**Implement this feature and make a PR from the branch `feat_custom_dates` to `master`.**_
-
-> Use the material date-picker component
-
-> We need two date-pickers: "from" and "to". The date-pickers should not allow selection of dates after the current day. "to" cannot be before "from" (selecting an invalid range should make both dates the same value)
-
-### Task 4
-
-```
-Technical requirement: the server `stocks-api` should be used as a proxy
-to make calls. Calls should be cached in memory to avoid querying for the
-same data. If a query is not in cache we should call-through to the API.
-```
-
-_**Implement the solution and make a PR from the branch `feat_proxy_server` to `master`**_
-
-> It is important to get the implementation working before trying to organize and clean it up.
+> Fixed chart undefined data value.
+> Removed hardcoded values used across application.
+> Updated testcases.
+> Replaced any datatype with interfaces.
