@@ -1,5 +1,6 @@
 <google-chart
-  *ngIf="data"
+  class="m-t-10"
+  *ngIf="chartData.length > 0"
   [title]="chart.title"
   [type]="chart.type"
   [data]="chartData"
